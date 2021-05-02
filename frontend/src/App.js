@@ -23,7 +23,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = (theme) => ({
   app: {
     alignItems: 'center',
-    fontSize: '40px'
+    fontSize: '40px',
+    padding: '0em 4.5em'
   },
   paper: {
     marginTop: theme.spacing(2),
@@ -32,7 +33,7 @@ const styles = (theme) => ({
     overflow: 'hidden',
   },
   searchBar: {
-    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)'
   },
   searchInput: {
     fontSize: theme.typography.fontSize,
@@ -63,7 +64,7 @@ function App(props) {
   // function
   function execute_io() {
     let agents = 5; // default number
-    
+
     if(word_number.trim() === "") {
       alert("จะให้สร้างประโยคยาวแค่ไหนก็บอกมาดิ")
       return
@@ -133,10 +134,8 @@ function App(props) {
           <Toolbar>
             <Grid container spacing={2} alignItems="center">
               <Grid item>
-                <ContactlessIcon className={classes.block} color="inherit" fontSize="large" />
-              </Grid>
-              <Grid item xs>
-                <Box display="flex" flexDirection="row" justifyContent="flex-start">
+                <Box display="flex" flexDirection="row" justifyContent="flex-start" >
+                  <ContactlessIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
                   <TextField
                     value={word}
                     onChange={handleWordChange}
@@ -145,7 +144,7 @@ function App(props) {
                       disableUnderline: false,
                       className: classes.searchInput,
                     }}
-                    style={{ verticalAlign: 'middle', flexGrow: 4 }}
+                    style={{ verticalAlign: 'middle', flexGrow: 4, maxWidth: '250px' }}
                   />
                   <SettingsEthernetIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
                   <TextField
