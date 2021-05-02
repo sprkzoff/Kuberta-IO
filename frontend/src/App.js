@@ -75,16 +75,13 @@ function App(props) {
       agents = parseInt(agent.trim(),10)
     }
 
-    let word_format = parseInt(word.trim(),10)
-    let wordnumber_format = parseInt(word_number.trim(),10)
+    console.log('executed:',word,word_number,agents)
 
-    axios.get(`http://localhost:8000/api/textgen?seedtext=${word_format}&n_outputs=${wordnumber_format}&max_len=${agents}`)
+    axios.get(`http://localhost:8000/api/textgen?seed_text=${word}&n_outputs=${agents}&max_len=${word_number}`)
     .then(res => {
       console.log(res.data)
+      setAllContents(res.data)
     })
-
-    console.log('executed:',word,word_number,agents)
-    setAllContents(["test sentence 1","test sentence 2"])
   }
 
   function handleWordChange(e) {
@@ -114,7 +111,7 @@ function App(props) {
       <Box display="flex" flexDirection="row" className={classes.img_wrapper}>
         <b>Kuberta-IO </b>
         <div id='img_logo'>
-          <img src='kubertaIO_logo.png' width='80px' />
+          <img src='kubertaIO_logo.png' alt='' width='80px' />
           <div class="circle" style={{animationDelay: '0s'}}></div>
           <div class="circle" style={{animationDelay: '1s'}}></div>
           <div class="circle" style={{animationDelay: '2s'}}></div>
