@@ -16,6 +16,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Post from './Post';
 import { blue } from '@material-ui/core/colors';
 import axios from 'axios';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const styles = (theme) => ({
@@ -48,6 +50,10 @@ const styles = (theme) => ({
   },
   img_wrapper: {
     marginTop: theme.spacing(8)
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   }
 });
 
@@ -57,11 +63,7 @@ function App(props) {
   // function
   function execute_io() {
     let agents = 5; // default number
-
-    if(word.trim() === "") {
-      alert("ใส่หัวข้อด้วย อย่าหลอน")
-      return
-    }
+    
     if(word_number.trim() === "") {
       alert("จะให้สร้างประโยคยาวแค่ไหนก็บอกมาดิ")
       return
@@ -75,13 +77,17 @@ function App(props) {
       agents = parseInt(agent.trim(),10)
     }
 
-    console.log('executed:',word,word_number,agents)
+    console.log('executing:',word,word_number,agents)
+    handleToggle()
 
     axios.get(`http://localhost:8000/api/textgen?seed_text=${word}&n_outputs=${agents}&max_len=${word_number}`)
     .then(res => {
       console.log(res.data)
       setAllContents(res.data)
+      setOpen(false)
+      console.log('executed:',word,word_number,agents)
     })
+    
   }
 
   function handleWordChange(e) {
@@ -96,6 +102,10 @@ function App(props) {
     setAgent(e.target.value)
   }
 
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
   function isInteger(value) {
     return /^\d+$/.test(value);
   }
@@ -105,6 +115,7 @@ function App(props) {
   const [word, setWord] = useState("");
   const [word_number, setWordNumber] = useState("");
   const [agent, setAgent] = useState("");
+  const [open, setOpen] = useState(false);
 
   return (
     <Box display="flex" flexDirection="column" className={classes.app}>
@@ -177,6 +188,9 @@ function App(props) {
         }
         </div>
       </Paper>
+      <Backdrop className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Box>
   );
 }
