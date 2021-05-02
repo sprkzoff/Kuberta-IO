@@ -3,7 +3,7 @@ djangorestframework
 django-environ
 django-cors-headers
 
-torch
+torch==1.8.1+cu111
 protobuf
 sentencepiece
 transformers

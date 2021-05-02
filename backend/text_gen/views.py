@@ -21,9 +21,11 @@ BASE_DIR = settings.BASE_DIR
 ft_model_path = os.path.join(BASE_DIR, 'text_gen/model/wc_io_w_ht.pth')
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+if torch.cuda.is_available() :
+    print("Using CUDA!")
 model.load_state_dict(torch.load(ft_model_path, map_location=device))
 
-# Text gen instance 
+# Text gen instance
 text_gen = TextGen(model, tokenizer)
 
 class  TextGenGet(APIView):
