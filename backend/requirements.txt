@@ -1,0 +1,8 @@
+django
+djangorestframework
+django-environ
+django-cors-headers
+
+torch
+sentencepieces
+transformers
