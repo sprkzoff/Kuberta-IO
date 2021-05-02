@@ -15,6 +15,7 @@ import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 import { withStyles } from '@material-ui/core/styles';
 import Post from './Post';
 import { blue } from '@material-ui/core/colors';
+import axios from 'axios';
 
 
 const styles = (theme) => ({
@@ -73,6 +74,14 @@ function App(props) {
     if(agent.trim() !== "") {
       agents = parseInt(agent.trim(),10)
     }
+
+    let word_format = parseInt(word.trim(),10)
+    let wordnumber_format = parseInt(word_number.trim(),10)
+
+    axios.get(`http://localhost:8000/api/textgen?seedtext=${word_format}&n_outputs=${wordnumber_format}&max_len=${agents}`)
+    .then(res => {
+      console.log(res.data)
+    })
 
     console.log('executed:',word,word_number,agents)
     setAllContents(["test sentence 1","test sentence 2"])
