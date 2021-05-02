@@ -23,17 +23,17 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = (theme) => ({
   app: {
     alignItems: 'center',
-    fontSize: '40px',
-    padding: '0em 4.5em'
+    fontSize: '40px'
   },
   paper: {
     marginTop: theme.spacing(2),
     minWidth: "50%",
-    margin: 'auto',
+    margin: '4.5em auto',
     overflow: 'hidden',
   },
   searchBar: {
-    borderBottom: '1px solid rgba(0, 0, 0, 0.12)'
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    padding: '0em 0em 0.2em 0em'
   },
   searchInput: {
     fontSize: theme.typography.fontSize,
@@ -134,40 +134,46 @@ function App(props) {
           <Toolbar>
             <Grid container spacing={2} alignItems="center">
               <Grid item>
-                <Box display="flex" flexDirection="row" justifyContent="flex-start" >
-                  <ContactlessIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
-                  <TextField
-                    value={word}
-                    onChange={handleWordChange}
-                    placeholder="ใส่หัวข้อการยุยงที่ท่านต้องการ"
-                    InputProps={{
-                      disableUnderline: false,
-                      className: classes.searchInput,
-                    }}
-                    style={{ verticalAlign: 'middle', flexGrow: 4, maxWidth: '250px' }}
-                  />
-                  <SettingsEthernetIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
-                  <TextField
-                    value={word_number}
-                    onChange={handleWordNumberChange}
-                    placeholder="จำนวนคำที่สร้าง"
-                    InputProps={{
-                      disableUnderline: false,
-                      className: classes.searchInput,
-                    }}
-                    style={{width: '20%', verticalAlign: 'middle'}}
-                  />
-                  <PeopleIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
-                  <TextField
-                    value={agent}
-                    onChange={handleAgentChange}
-                    placeholder="agents"
-                    InputProps={{
-                      disableUnderline: false,
-                      className: classes.searchInput,
-                    }}
-                    style={{width: '10%', verticalAlign: 'middle'}}
-                  />
+                <Box display="flex" flexDirection="row" justifyContent="flex-start" flexWrap="wrap" >
+                  <Box display="flex" flexDirection="row">
+                    <ContactlessIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
+                    <TextField
+                      value={word}
+                      onChange={handleWordChange}
+                      placeholder="ใส่หัวข้อการยุยงที่ท่านต้องการ"
+                      InputProps={{
+                        disableUnderline: false,
+                        className: classes.searchInput,
+                      }}
+                      style={{ verticalAlign: 'middle', flexGrow: 4, minWidth: '200px', maxWidth: '250px' }}
+                    />
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <SettingsEthernetIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
+                    <TextField
+                      value={word_number}
+                      onChange={handleWordNumberChange}
+                      placeholder="จำนวนคำที่สร้าง"
+                      InputProps={{
+                        disableUnderline: false,
+                        className: classes.searchInput,
+                      }}
+                      style={{width: '20%', verticalAlign: 'middle', width: '120px'}}
+                    />
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <PeopleIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
+                    <TextField
+                      value={agent}
+                      onChange={handleAgentChange}
+                      placeholder="agents"
+                      InputProps={{
+                        disableUnderline: false,
+                        className: classes.searchInput,
+                      }}
+                      style={{width: '10%', verticalAlign: 'middle', width: '70px'}}
+                    />
+                  </Box>
                 </Box>
               </Grid>
               <Grid item>
