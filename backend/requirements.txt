@@ -4,5 +4,6 @@ django-environ
 django-cors-headers
 
 torch
+protobuf
 sentencepiece
 transformers
