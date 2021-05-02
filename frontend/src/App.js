@@ -10,10 +10,12 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ContactlessIcon from '@material-ui/icons/Contactless';
+import PeopleIcon from '@material-ui/icons/People';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 import { withStyles } from '@material-ui/core/styles';
 import Post from './Post';
 import { blue } from '@material-ui/core/colors';
+import axios from 'axios';
 
 
 const styles = (theme) => ({
@@ -54,6 +56,8 @@ function App(props) {
 
   // function
   function execute_io() {
+    let agents = 5; // default number
+
     if(word.trim() === "") {
       alert("ใส่หัวข้อด้วย อย่าหลอน")
       return
@@ -67,8 +71,17 @@ function App(props) {
       return
     }
 
-    console.log('executed:',word,word_number)
-    setAllContents(["test sentence 1","test sentence 2"])
+    if(agent.trim() !== "") {
+      agents = parseInt(agent.trim(),10)
+    }
+
+    console.log('executed:',word,word_number,agents)
+
+    axios.get(`http://localhost:8000/api/textgen?seed_text=${word}&n_outputs=${agents}&max_len=${word_number}`)
+    .then(res => {
+      console.log(res.data)
+      setAllContents(res.data)
+    })
   }
 
   function handleWordChange(e) {
@@ -79,6 +92,10 @@ function App(props) {
     setWordNumber(e.target.value)
   }
 
+  function handleAgentChange(e) {
+    setAgent(e.target.value)
+  }
+
   function isInteger(value) {
     return /^\d+$/.test(value);
   }
@@ -87,13 +104,14 @@ function App(props) {
   const [allContents, setAllContents] = useState([]);
   const [word, setWord] = useState("");
   const [word_number, setWordNumber] = useState("");
+  const [agent, setAgent] = useState("");
 
   return (
     <Box display="flex" flexDirection="column" className={classes.app}>
       <Box display="flex" flexDirection="row" className={classes.img_wrapper}>
         <b>Kuberta-IO </b>
         <div id='img_logo'>
-          <img src='kubertaIO_logo.png' width='80px' />
+          <img src='kubertaIO_logo.png' alt='' width='80px' />
           <div class="circle" style={{animationDelay: '0s'}}></div>
           <div class="circle" style={{animationDelay: '1s'}}></div>
           <div class="circle" style={{animationDelay: '2s'}}></div>
@@ -116,7 +134,7 @@ function App(props) {
                       disableUnderline: false,
                       className: classes.searchInput,
                     }}
-                    style={{width: '50%', verticalAlign: 'middle', flexGrow: 4 }}
+                    style={{ verticalAlign: 'middle', flexGrow: 4 }}
                   />
                   <SettingsEthernetIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
                   <TextField
@@ -127,7 +145,18 @@ function App(props) {
                       disableUnderline: false,
                       className: classes.searchInput,
                     }}
-                    style={{width: '27%', verticalAlign: 'middle'}}
+                    style={{width: '20%', verticalAlign: 'middle'}}
+                  />
+                  <PeopleIcon className={classes.block} style={{ padding: '8px' }} color="inherit" fontSize="large" />
+                  <TextField
+                    value={agent}
+                    onChange={handleAgentChange}
+                    placeholder="agents"
+                    InputProps={{
+                      disableUnderline: false,
+                      className: classes.searchInput,
+                    }}
+                    style={{width: '10%', verticalAlign: 'middle'}}
                   />
                 </Box>
               </Grid>

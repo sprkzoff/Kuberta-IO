@@ -201,7 +201,7 @@ class TextGen:
         # return ['hhhh']
         seed_text = self.tokenizer.tokenize(seed_text)
         print(f'seed text: {seed_text}')
-        bert_sents = self.generate(n_samples=N_SAMPLES, seed_text=seed_text, batch_size=n_outputs,     
+        bert_sents = self.generate(n_samples=n_outputs, seed_text=seed_text, batch_size=n_outputs,     
                             max_len=max_len, generation_mode=GENERATION_MODE,
                             sample=SAMPLE, top_k=TOP_K, temperature=TEMPERATURE, burnin=BURNIN, max_iter=MAX_ITER, cuda=CUDA)
         outputs = []
