@@ -4,5 +4,5 @@ django-environ
 django-cors-headers
 
 torch
-sentencepieces
+sentencepiece
 transformers
