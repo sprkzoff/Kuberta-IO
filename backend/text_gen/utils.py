@@ -86,6 +86,7 @@ class TextGen:
 
     def post_processing(self, sentence):
         ret = sentence.replace('<_>', " ")
+        ret = ret.replace('▁', " ")
         ret = ret.replace('_', " ")
         ret = ret.replace('<s>', '')
         ret = ret.replace('</s>', '')
@@ -158,7 +159,6 @@ class TextGen:
         
         for ii in range(max_len):
             inp = [sent[:seed_len+ii+leed_out_len]+[self.sep_id] for sent in batch]
-            print(inp)
             inp = torch.tensor(batch).cuda() if cuda else torch.tensor(batch)
             out = self.model(inp)
             idxs = self.generate_step(out, gen_idx=seed_len+ii, top_k=top_k, temperature=temperature, sample=sample)
@@ -197,15 +197,14 @@ class TextGen:
             sentences += batch
         return sentences
 
-    def gen_sent(self, seed_text="<s>", max_len=MAX_LEN, n_samples=N_SAMPLES):
+    def gen_sent(self, seed_text="<s>", max_len=MAX_LEN, n_outputs=BATCH_SIZE):
         # return ['hhhh']
         seed_text = self.tokenizer.tokenize(seed_text)
         print(f'seed text: {seed_text}')
-        bert_sents = self.generate(n_samples, seed_text=seed_text, batch_size=BATCH_SIZE, max_len=max_len,
-                            generation_mode=GENERATION_MODE,
-                            sample=SAMPLE, top_k=TOP_K, temperature=TEMPERATURE, burnin=BURNIN, max_iter=MAX_ITER,
-                            cuda=CUDA)
+        bert_sents = self.generate(n_samples=N_SAMPLES, seed_text=seed_text, batch_size=n_outputs,     
+                            max_len=max_len, generation_mode=GENERATION_MODE,
+                            sample=SAMPLE, top_k=TOP_K, temperature=TEMPERATURE, burnin=BURNIN, max_iter=MAX_ITER, cuda=CUDA)
         outputs = []
         for sent in bert_sents:
             outputs.append(self.printer(sent, should_detokenize=False))
-            return outputs
+        return outputs
