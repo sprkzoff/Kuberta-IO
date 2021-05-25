@@ -4,6 +4,7 @@ A platform for information operation using text generation (For educational purp
 ## Repository Structure
 1. frontend - the user interface of the project created by ReactJS
 2. backend - the text generation part which run as RESTful api created by Django
+3. notebooks - POC code and evaluation
 
 ## How to run the project
 In frontend
