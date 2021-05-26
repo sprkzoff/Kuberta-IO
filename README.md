@@ -24,5 +24,5 @@ In backend
 
 1. `cd backend`
 2. Install dependencies by using the command `pip install -r requirements.txt`
-3. Put the `model.pth` in the folder `/backend/text_gen/model` (In this case, we don't provide the model due to the effect on national security LOL)
+3. Put the `model.pth` in the folder `/backend/text_gen/model` (In this case, we don't provide the model due to the effect on national security)
 4. Run `python manage.py runserver` , This should run the backend on port 8000
